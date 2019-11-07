@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
@@ -16,17 +16,18 @@ const MainBodyRightPropertyArea = ({ activeTabDatas, setActiveTab }) => {
   const handleOnSelectTab = (idx, lastIdx, evt) => {
     setTabIndex(idx);
   };
-  /*
-  if (activeTabDatas.tabActive) {
-    const activeTab = {
-      tabActive: false,
-      tabIndex: 0 // 0:템플릿속성Tab 1:컴포넌트속성Tab
-    };
-    setActiveTab(activeTab);
 
-    setTabIndex(activeTabDatas.tabIndex);
-  }
-  */
+  useEffect(() => {
+    if (activeTabDatas.tabActive) {
+      setTabIndex(activeTabDatas.tabIndex);
+
+      const activeTab = {
+        tabActive: false,
+        tabIndex: 0 // 0:템플릿속성Tab 1:컴포넌트속성Tab
+      };
+      setActiveTab(activeTab);
+    }
+  }, [activeTabDatas.tabActive]);
 
   return (
     <Tabs selectedIndex={tabIndex} onSelect={handleOnSelectTab}>
